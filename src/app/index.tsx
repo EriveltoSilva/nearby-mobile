@@ -1,6 +1,7 @@
 import { Button } from "@/components/button";
 import { Steps } from "@/components/steps";
 import { Welcome } from "@/components/welcome";
+import { router } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
 export default function WelcomeScreen() {
@@ -8,7 +9,8 @@ export default function WelcomeScreen() {
     <View style={styles.container}>
       <Welcome />
       <Steps />
-      <Button>
+
+      <Button onPress={() => router.navigate("/home")}>
         <Button.Text>Começar</Button.Text>
       </Button>
     </View>
