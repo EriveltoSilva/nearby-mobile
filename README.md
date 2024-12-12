@@ -1,5 +1,8 @@
 # Nearby - Your Favorite Mobile Club Benefits App
 
+## Objetivos
+A React Native Mobile application built with TypeScript to showcase nearby partner establishments, promotions, and benefits based on the user's location.
+
 ## Installations
 
 1. font-family

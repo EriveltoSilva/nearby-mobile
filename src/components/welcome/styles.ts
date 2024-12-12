@@ -6,7 +6,7 @@ export const s = StyleSheet.create({
   logo: {
     width: 48,
     height: 48,
-    marginTop: 64,
+    marginTop: 32,
     marginBottom: 48,
   },
   title: {
