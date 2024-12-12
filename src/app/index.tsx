@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text style={styles.title}>Erivelto Clénio da Costa e Silva</Text>
     </View>
   );
