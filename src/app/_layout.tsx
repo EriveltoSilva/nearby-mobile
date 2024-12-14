@@ -1,4 +1,6 @@
+import { Stack } from "expo-router";
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { Loading } from "@/components/loading";
 import { colors } from "@/styles/theme";
@@ -9,7 +11,6 @@ import {
   Rubik_700Bold,
   useFonts,
 } from "@expo-google-fonts/rubik";
-import { Stack } from "expo-router";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -20,5 +21,9 @@ export default function Layout() {
   });
 
   if (!fontsLoaded) return <Loading />;
-  return <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.gray[100] } }} />;
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.gray[100] } }} />
+    </GestureHandlerRootView>
+  );
 }

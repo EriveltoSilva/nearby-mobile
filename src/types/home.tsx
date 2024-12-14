@@ -1,16 +1,13 @@
+import { Categories } from "@/components/categories";
+import { api } from "@/services/api";
+import { CategoriesEntity } from "@/types/category";
 import React, { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 
-import { Categories } from "@/components/categories";
-import { Places } from "@/components/places";
-import { api } from "@/services/api";
-import { CategoriesEntity } from "@/types/category";
-import { MarketEntity } from "@/types/market";
-
 export default function HomeScreen() {
-  const [markets, setMarkets] = useState<MarketEntity[]>([]);
-  const [categories, setCategories] = useState<CategoriesEntity[]>([]);
   const [category, setCategory] = useState<string>("");
+  const [markets, setMarkets] = useState<CategoriesEntity[]>([]);
+  const [categories, setCategories] = useState<CategoriesEntity[]>([]);
 
   const fetchCategories = async () => {
     try {
@@ -27,7 +24,8 @@ export default function HomeScreen() {
     if (!category) return;
     try {
       const { data } = await api.get(`/markets/category/${category}`);
-      setMarkets(data);
+      setCategories(data);
+      setCategory(data[0].id);
     } catch (error) {
       console.error(error);
       Alert.alert("Locais", "Não foi possível carregar os locais!");
@@ -38,14 +36,9 @@ export default function HomeScreen() {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    fetchMarkets();
-  }, [category]);
-
   return (
-    <View style={{ flex: 1, backgroundColor: "#ccc" }}>
+    <View style={{ flex: 1 }}>
       <Categories data={categories} onSelect={setCategory} selected={category} />
-      <Places data={markets} />
     </View>
   );
 }
