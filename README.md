@@ -14,3 +14,18 @@ npx expo install expo-font @expo-google-fonts/rubik
 ```bash
 npx expo install react-native-svg
 ```
+
+3. [React Native Bottom Sheet](https://gorhom.dev/react-native-bottom-sheet/)
+```bash
+npm install @gorhom/bottom-sheet@^5
+```
+
+4. [React Native Reanimation and Gesture Handler](https://gorhom.dev/react-native-bottom-sheet/#installation)
+```bash
+npx expo install react-native-reanimated react-native-gesture-handler
+```
+
+5. [Expo Map View](https://docs.expo.dev/versions/latest/sdk/map-view/)
+```bash
+npx expo install react-native-maps
+```
