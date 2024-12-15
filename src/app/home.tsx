@@ -3,47 +3,36 @@ import { Alert, Text, View } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 
 import { Categories } from "@/components/categories";
+import { Loading } from "@/components/loading";
 import { Places } from "@/components/places";
 import { api } from "@/services/api";
 import { colors } from "@/styles/colors";
 import { fontFamily } from "@/styles/font-family";
 import { CategoriesEntity } from "@/types/category";
+import { Coordinate } from "@/types/coordinate";
 import { MarketEntity } from "@/types/market";
+import * as Location from "expo-location";
 import { router } from "expo-router";
-
-const fixedLocation = {
-  //Angola
-  latitude: -8.920744,
-  longitude: 13.3789928,
-};
-
-const currentLocation = {
-  // Brasil
-  latitude: -23.561187293883442,
-  longitude: -46.656451388116494,
-};
 
 export default function HomeScreen() {
   const [markets, setMarkets] = useState<MarketEntity[]>([]);
   const [categories, setCategories] = useState<CategoriesEntity[]>([]);
   const [category, setCategory] = useState<string>("");
-  // const [currentLocation, setCurrentLocation] = useState<Coordinate | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<Coordinate | null>(null);
 
-  // const getCurrentLocation = async () => {
-  //   try {
-  //     let { granted } = await Location.requestForegroundPermissionsAsync();
-  //     if (!granted) {
-  //       Alert.alert("GPS", "Ative a localização por GPS, por favor!");
-  //       return;
-  //     }
-  //     const location = (await Location.getCurrentPositionAsync({})) as Location.LocationObject;
-  //     setCurrentLocation((prev) => ({ ...location.coords }));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  console.log("AQUI", currentLocation);
+  const getCurrentLocation = async () => {
+    try {
+      let { granted } = await Location.requestForegroundPermissionsAsync();
+      if (!granted) {
+        Alert.alert("GPS", "Ative a localização por GPS, por favor!");
+        return;
+      }
+      const location = (await Location.getCurrentPositionAsync({})) as Location.LocationObject;
+      setCurrentLocation((prev) => ({ ...location.coords }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -68,7 +57,7 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    // getCurrentLocation();
+    getCurrentLocation();
     fetchCategories();
   }, []);
 
@@ -80,7 +69,7 @@ export default function HomeScreen() {
     <View style={{ flex: 1, backgroundColor: "#ccc" }}>
       <Categories data={categories} onSelect={setCategory} selected={category} />
 
-      {currentLocation && (
+      {currentLocation ? (
         <MapView
           initialRegion={{
             latitude: currentLocation.latitude,
@@ -115,6 +104,8 @@ export default function HomeScreen() {
             </Marker>
           ))}
         </MapView>
+      ) : (
+        <Loading />
       )}
       <Places data={markets} />
     </View>

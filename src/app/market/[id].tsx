@@ -64,8 +64,6 @@ export default function MarketDetailScreen() {
   const getCupom = async (id: string) => {
     try {
       setIsLoadingCupom(true);
-      console.log("taking:", id);
-
       const { data } = await api.patch(`/coupons/${id}`);
       Alert.alert("Coupons", data.coupon);
       setCupom(data.coupon);
@@ -109,7 +107,6 @@ export default function MarketDetailScreen() {
           onBarcodeScanned={({ data }) => {
             if (data && !qrLock.current) {
               qrLock.current = true;
-              console.log(data);
               setTimeout(() => handleUseCupom(data), 500);
             }
           }}
